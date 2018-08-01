@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts  
+Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="admin" extends="struts-default">
+	
+		<interceptors>	
+			<interceptor name="authenticationInterceptor" class="com.bankaction.AuthenticationInterceptor"/>
+    			<interceptor-stack name="secureStack">
+        			<interceptor-ref name="authenticationInterceptor"/>
+        			<interceptor-ref name="defaultStack"/>
+    			</interceptor-stack>
+		</interceptors>
+	
+		<action name="adminLogin" class="com.bankaction.AuthenticationAction" method="adminLogin">
+			<result name="success">/Branch.jsp</result>
+			<result name="login">/AdminLogin.jsp</result>
+		</action>
+		<action name="branch" class="com.bankaction.BranchAction" method="addBranch">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/Branch.jsp</result>
+			<result name="error">/Branch.jsp</result>
+			<result name="login">/AdminLogin.jsp</result>
+		</action>
+		<action name="addCustomer" class="com.bankaction.AddCustomerAction" method="addCustomer">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/AddCustomer.jsp</result>
+			<result name="error">/AddCustomer.jsp</result>
+			<result name="login">/AdminLogin.jsp</result>
+		</action>
+		<action name="addCustomerPassword" class="com.bankaction.AddCustomerAction" method="addCustomerPassword">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/AddCustomerPassword.jsp</result>
+			<result name="error">/AddCustomerPassword.jsp</result>
+			<result name="login">/AdminLogin.jsp</result>
+		</action>
+		<action name="addCustomerAccounts" class="com.bankaction.AddCustomerAction" method="addCustomerAccount">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/CreateAccount.jsp</result>
+			<result name="error">/CreateAccount.jsp</result>
+			<result name="login">/AdminLogin.jsp</result>
+		</action>
+		<action name="adminLogout" class="com.bankaction.AuthenticationAction" method="adminLogout">
+			<result name="success">/AdminLogin.jsp</result>
+		</action>
+		<action name="test" class="com.bankaction.testaction" method="test">
+			<result name="success">/test.html</result>
+		</action>
+		
+	</package>
+	
+ 	<package name="customer" extends="struts-default">
+ 		<interceptors>	
+			<interceptor name="authenticationInterceptor" class="com.bankaction.AuthenticationInterceptor"/>
+    			<interceptor-stack name="secureStack">
+        			<interceptor-ref name="authenticationInterceptor"/>
+        			<interceptor-ref name="defaultStack"/>
+    			</interceptor-stack>
+		</interceptors>
+		
+		<action name="customerLogin" class="com.bankaction.AuthenticationAction" method="customerLogin">
+			<result name="success">/CustomerDashboard.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="deposit" class="com.bankaction.DepositAndWithdrawAction" method="deposit">
+		<!-- <interceptor-ref name="secureStack"></interceptor-ref> -->
+			<result name="success">/Deposit.jsp</result>
+			<result name="error">/Deposit.jsp</result>
+			<result name="login" type="redirect">/CustomerLogin.jsp</result>
+			<interceptor-ref name="secureStack"></interceptor-ref>
+		</action>
+		<action name="withdraw" class="com.bankaction.DepositAndWithdrawAction" method="withdraw">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/Withdraw.jsp</result>
+			<result name="error">/Withdraw.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="transferBetweenAccounts" class="com.bankaction.TransferAction" method="transferBetweenAccounts">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/TransferBetweenAccounts.jsp</result>
+			<result name="error">/TransferBetweenAccounts.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="transferWithinBank" class="com.bankaction.TransferAction" method="transferWithinBank">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/TransferWithinBank.jsp</result>
+			<result name="error">/TransferWithinBank.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="NEFTTransfer" class="com.bankaction.TransferAction" method="NEFTTransfer">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/NEFTTransfer.jsp</result>
+			<result name="error">/NEFTTransfer.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="availLoan" class="com.bankaction.DepositAndWithdrawAction" method="availLoan">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/AvailLoan.jsp</result>
+			<result name="error">/AvailLoan.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="replayloan" class="com.bankaction.DepositAndWithdrawAction" method="replayloan">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/RepayLoan.jsp</result>
+			<result name="error">/RepayLoan.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="addBeneficiary" class="com.bankaction.BeneficiaryAction" method="addBeneficiary">
+			<interceptor-ref name="secureStack"></interceptor-ref>
+			<result name="success">/AddBeneficiary.jsp</result>
+			<result name="error">/AddBeneficiary.jsp</result>
+			<result name="login">/CustomerLogin.jsp</result>
+		</action>
+		<action name="customerLogout" class="com.bankaction.AuthenticationAction" method="customerLogout">
+			<result name="success">/CustomerLogin.jsp</result>
+		</action>
+	</package>
+	
+</struts>
